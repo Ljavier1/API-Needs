@@ -1,4 +1,3 @@
-// initDB.js
 import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 
@@ -15,11 +14,9 @@ async function initDB() {
       password: DB_PASSWORD,
     });
 
-    
     await connection.query(`CREATE DATABASE IF NOT EXISTS ${DB_NAME}`);
     console.log(`Base de datos ${DB_NAME} creada o ya existe`);
 
-    
     await connection.query(`USE ${DB_NAME}`);
 
     // Creación de tablas
@@ -91,7 +88,6 @@ async function initDB() {
   }
 }
 
-initDB();
 
 export default initDB;
 
