@@ -17,7 +17,7 @@ async function initDB() {
 
     
     await connection.query(`CREATE DATABASE IF NOT EXISTS ${DB_NAME}`);
-    console.log(`Database ${DB_NAME} created or already exists.`);
+    console.log(`Base de datos ${DB_NAME} creada o ya existe`);
 
     
     await connection.query(`USE ${DB_NAME}`);
@@ -82,15 +82,17 @@ async function initDB() {
       )
     `);
 
-    console.log('Tables created successfully.');
+    console.log('Tablas creadas.');
 
     // Cerrar la conexión
     connection.end();
   } catch (error) {
-    console.error('Error initializing database:', error.message);
+    console.error('Error al iniciar base de datos:', error.message);
   }
 }
 
 initDB();
+
+export default initDB;
 
 
