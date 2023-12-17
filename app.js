@@ -1,4 +1,3 @@
-
 import express from 'express';
 import initDB from './initDB.js';
 
