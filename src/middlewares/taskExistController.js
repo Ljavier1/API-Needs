@@ -13,7 +13,7 @@ const taskExistController = async (req, res, next) => {
       `
     );
 
-    if (task.length < 1) notFoundError("entrada");
+    if (task.length < 1) notFoundError("Tarea no encontrada");
 
     next();
   } catch (error) {

@@ -1,24 +1,24 @@
-export const notFoundError = (resourse) => {
+export const notFoundError = (resource) => {
   throw {
     httpStatus: 404,
-    code: "RESOURECE_NOT_FOUND",
-    message: `Esta ruta no existe ${resourse}`,
+    code: "RESOURCE_NOT_FOUND",
+    message: `The path ${resource} doesn't exist`,
   };
 };
 
-export const userAlReadyRegistratedError = () => {
+export const userAlreadyRegistratedError = () => {
   throw {
     httpStatus: 409,
-    code: "USER_ALREADY_EXIST",
-    message: `UserName alredy`,
+    code: "USER_ALREADY_EXISTS",
+    message: `This username already exists`,
   };
 };
 
-export const emailAlReadyRegistratedError = () => {
+export const emailAlreadyRegistratedError = () => {
   throw {
     httpStatus: 409,
-    code: "EMAIL_ALREDY_USED",
-    message: `Email alredy used`,
+    code: "EMAIL_ALREADY_USED",
+    message: `This email already exists`,
   };
 };
 
@@ -30,11 +30,11 @@ export const invalidCredentialsError = () => {
   };
 };
 
-export const notAuthorizationError = () => {
+export const notAuthorizedError = () => {
   throw {
     httpStatus: 401,
-    code: "NOT_ACREDITED",
-    message: `User not acredited`,
+    code: "NOT_AUTHORIZED",
+    message: `User not authorized`,
   };
 };
 
@@ -50,11 +50,11 @@ export const deleteFileError = () => {
   throw {
     httpStatus: 409,
     code: "FILE_DELETED_FAILED",
-    message: `Can't delete img`,
+    message: `Error deleting this file`,
   };
 };
 
-export const canNotResolveTaskError = () => {
+export const resolveOwnTaskError = () => {
   throw {
     httpStatus: 403,
     code: "CANNOT_RESOLVE_TASK",
@@ -62,10 +62,18 @@ export const canNotResolveTaskError = () => {
   };
 };
 
-export const solutionAlredyExistError = () => {
+export const solutionAlreadyExistsError = () => {
   throw {
     httpStatus: 409,
-    code: "SOLUTION_ALLREDY_TASK",
-    message: `The task have a solution`,
+    code: "SOLUTION_ALREADY_EXISTS",
+    message: `This task already has many solutions`,
+  };
+};
+
+export const poolError = () => {
+  throw {
+    httpStatus: 502,
+    code: "BAD_GATEWAY_CONNECTION",
+    message: `Server connection error`,
   };
 };

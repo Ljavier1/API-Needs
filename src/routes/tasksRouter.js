@@ -9,9 +9,9 @@ import {
 import {
   newTaskController,
   listTasksController,
-  solutionsEntryController,
+  solutionEntryController,
   getTaskController,
-  commentsTaskController,
+  commentTaskController,
   editStatusTaskController,
 } from "../controlllers/tasks/index.js";
 
@@ -22,13 +22,13 @@ router.post(
   "/tasks/:taskId/solutions",
   authUserController,
   taskExistController,
-  solutionsEntryController
+  solutionEntryController
 );
 router.post(
   "/tasks/:taskId/comments",
   authUserController,
   taskExistController,
-  commentsTaskController
+  commentTaskController
 );
 router.post("/tasks/status", authUserController, editStatusTaskController);
 export default router;

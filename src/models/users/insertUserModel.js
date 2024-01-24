@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
 import getPool from "../../database/getPool.js";
 import {
-  userAlReadyRegistratedError,
-  emailAlReadyRegistratedError,
+  userAlreadyRegistratedError,
+  emailAlreadyRegistratedError,
 } from "../../service/errorService.js";
 
 const insertUserModel = async (name, email, password, bio, photo) => {
@@ -15,7 +15,7 @@ const insertUserModel = async (name, email, password, bio, photo) => {
     [name]
   );
   if (user.lenght) {
-    userAlReadyRegistratedError();
+    userAlreadyRegistratedError();
   }
   [user] = await pool.query(
     `
@@ -24,7 +24,7 @@ const insertUserModel = async (name, email, password, bio, photo) => {
     [email]
   );
   if (user.lenght) {
-    emailAlReadyRegistratedError();
+    emailAlreadyRegistratedError();
   }
 
   [user] = await pool.query(
