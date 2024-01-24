@@ -60,11 +60,12 @@ const initDB = async () => {
       )
     `);
 
-    console.log("Tablas creadas.");
+    // console.log("Tablas creadas.");
 
     // Cerrar la conexión
   } catch (error) {
     console.error("Error al iniciar base de datos:", error.message);
+    process.exit(1);
   }
 };
 

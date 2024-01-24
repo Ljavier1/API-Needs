@@ -15,15 +15,30 @@ const editUserAvatarController = async (req, res, next) => {
 
     const avatarName = await savePhotoService(req.files.avatar, 100);
 
+    const updateUserAvatarModel = async (avatarName, userId) => {
+      const pool = await getPool();
+
+      await pool.query(
+        `
+            UPDATE users
+            SET photo = ?
+            WHERE id = ?
+        `,
+        [avatarName, userId]
+      );
+    };
+
     await updateUserAvatarModel(avatarName, req.user.id);
 
     res.send({
       status: "ok",
       message: "Avatar actualizado",
+      photo: avatarName,
     });
   } catch (error) {
     next(error);
   }
 };
+
 
 export default editUserAvatarController;

@@ -18,15 +18,12 @@ const solutionsEntryController = async (req, res, next) => {
       for (let file of Object.values(req.files).slice(0, 3)) {
         let photoName = await fileService(file);
 
-        const solutions = await insertSolutionModel(
-          description,
-          photoName,
-          taskId,
-          req.user.id
-        );
+        const solution = await insertSolutionModel(description, photoName, taskId, req.user.id);
+
+        solution.createdAt = solution.createdAt; // Devolver el timestamp de creación desde la base de datos
 
         photos.push({
-          id: solutions,
+          id: solution,
           name: photoName,
         });
       }

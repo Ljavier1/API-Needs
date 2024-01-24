@@ -2,7 +2,7 @@ export const notFoundError = (resourse) => {
   throw {
     httpStatus: 404,
     code: "RESOURECE_NOT_FOUND",
-    message: `Esta ruta no existe ${resourse}`,
+    message: `The resource doesn't exist`,
   };
 };
 
@@ -10,7 +10,7 @@ export const userAlReadyRegistratedError = () => {
   throw {
     httpStatus: 409,
     code: "USER_ALREADY_EXIST",
-    message: `UserName alredy`,
+    message: `Username already `,
   };
 };
 
@@ -18,7 +18,7 @@ export const emailAlReadyRegistratedError = () => {
   throw {
     httpStatus: 409,
     code: "EMAIL_ALREDY_USED",
-    message: `Email alredy used`,
+    message: `Email already used`,
   };
 };
 
