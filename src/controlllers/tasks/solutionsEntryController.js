@@ -1,5 +1,5 @@
 import selectTaskByIdModel from "../../models/tasks/selectTaskByIdModel.js";
-import { canNotResolveTaskError } from "../../service/errorService.js";
+import { resolveOwnTaskError } from "../../service/errorService.js";
 import insertSolutionModel from "../../models/tasks/insertSolutionModel.js";
 import { fileService } from "../../service/fileService.js";
 
@@ -10,7 +10,7 @@ const solutionsEntryController = async (req, res, next) => {
 
     const task = await selectTaskByIdModel(taskId);
 
-    if (task.user_id === req.user.id) canNotResolveTaskError();
+    if (task.user_id === req.user.id) resolveOwnTaskError();
 
     let photos = [];
 

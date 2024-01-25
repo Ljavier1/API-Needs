@@ -1,7 +1,7 @@
 import getPool from "../../database/getPool.js";
-import { solutionAlredyExistError } from "../../service/errorService.js";
+import { solutionAlreadyExistError } from "../../service/errorService.js";
 
-const insertSolutionModel = async (descriprion, photoName, taskId, userId) => {
+const insertSolutionModel = async (description, photoName, taskId, userId) => {
   const pool = await getPool();
 
   const [solution] = await pool.query(
@@ -12,14 +12,14 @@ const insertSolutionModel = async (descriprion, photoName, taskId, userId) => {
     [userId, taskId]
   );
 
-  if (solution.length) solutionAlredyExistError();
+  if (solution.length > 5) solutionAlreadyExistError();
 
   await pool.query(
     `
             INSERT INTO solutions (description, file_path, task_id, user_id)
             VALUES (?,?,?,?)
         `,
-    [descriprion, photoName, taskId, userId]
+    [description, photoName, taskId, userId]
   );
 };
 

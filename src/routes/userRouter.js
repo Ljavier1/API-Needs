@@ -6,16 +6,16 @@ import {
   newUserController,
   loginUserController,
   editUserAvatarController,
-} from "../controlllers/users/index.js";
+} from "../controllers/users/index.js";
 
-//   USUARIO ANONIMO    //
+// USUARIO ANONIMO
 
 // registrarte como usuario
 router.post("/users/register", newUserController);
 // login usuario
 router.post("/users/login", loginUserController);
 
-//   USUARIO LOGIN   //
+// USUARIO LOGEADO
 
 // cambiar avatar
 router.post("/users/avatar", authUserController, editUserAvatarController);
