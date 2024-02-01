@@ -1,8 +1,42 @@
+// Errores de cliente (400-499)
+
+export const invalidCredentialsError = () => {
+  throw {
+    httpStatus: 401,
+    code: "ERROR_CREDENTIALS_INCORRECT",
+    message: `Incorrect credentials`,
+  };
+};
+
+export const notAuthorizedError = () => {
+  throw {
+    httpStatus: 401,
+    code: "NOT_AUTHORIZED",
+    message: `User not authorized`,
+  };
+};
+
+export const resolveOwnTaskError = () => {
+  throw {
+    httpStatus: 403,
+    code: "CANNOT_RESOLVE_TASK",
+    message: `You can't resolve your own task`,
+  };
+};
+
 export const notFoundError = (resource) => {
   throw {
     httpStatus: 404,
     code: "RESOURECE_NOT_FOUND",
     message: `The resource doesn't exist`,
+  };
+};
+
+export const solutionAlreadyExistsError = () => {
+  throw {
+    httpStatus: 409,
+    code: "SOLUTION_ALREADY_EXISTS",
+    message: `This task already has many solutions`,
   };
 };
 
@@ -22,30 +56,6 @@ export const emailAlreadyRegistratedError = () => {
   };
 };
 
-export const invalidCredentialsError = () => {
-  throw {
-    httpStatus: 401,
-    code: "ERROR_CREDENTIALS_INCORRECT",
-    message: `Incorrect credentials`,
-  };
-};
-
-export const notAuthorizedError = () => {
-  throw {
-    httpStatus: 401,
-    code: "NOT_AUTHORIZED",
-    message: `User not authorized`,
-  };
-};
-
-export const saveFileError = () => {
-  throw {
-    httpStatus: 500,
-    code: "FILE_SAVE_FAILED",
-    message: `Error saving file`,
-  };
-};
-
 export const deleteFileError = () => {
   throw {
     httpStatus: 409,
@@ -54,19 +64,13 @@ export const deleteFileError = () => {
   };
 };
 
-export const resolveOwnTaskError = () => {
-  throw {
-    httpStatus: 403,
-    code: "CANNOT_RESOLVE_TASK",
-    message: `You can't resolve your own task`,
-  };
-};
+// Errores de servidor (500-599)
 
-export const solutionAlreadyExistsError = () => {
+export const saveFileError = () => {
   throw {
-    httpStatus: 409,
-    code: "SOLUTION_ALREADY_EXISTS",
-    message: `This task already has many solutions`,
+    httpStatus: 500,
+    code: "FILE_SAVE_FAILED",
+    message: `Error saving file`,
   };
 };
 

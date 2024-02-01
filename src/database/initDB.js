@@ -9,11 +9,12 @@ const initDB = async () => {
 
     await pool.query(`USE api_needs`);
 
-    /* CREACION DE TABLAS
-    Utilizamos pool.query en vez de connection.query ya que el pool
-    está enfocado a la gestión simultánea de muchas solicitudes y es
-    el volumen de trabajo para el que deberíamos preparar nuestra app.
-    */
+/* CREACION DE TABLAS
+Utilizamos pool.query en vez de connection.query ya que el pool
+está enfocado a la gestión simultánea de muchas solicitudes y es
+el volumen de trabajo para el que deberíamos preparar nuestra app.
+*/
+
     await pool.query(`
       CREATE TABLE IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
