@@ -15,6 +15,8 @@ import {
   editStatusTaskController,
 } from "../controlllers/tasks/index.js";
 
+import searchTasksController from "./controllers/tasks/searchTasksController.js"; // Corregido nombre de importación
+
 router.post("/tasks", authUserController, newTaskController);
 router.get("/tasks", listTasksController);
 router.get("/tasks/:taskId", taskExistController, getTaskController);
@@ -31,4 +33,7 @@ router.post(
   commentTaskController
 );
 router.post("/tasks/status", authUserController, editStatusTaskController);
+
+router.get("/tasks/search", searchTasksController); // Búsqueda
+
 export default router;
