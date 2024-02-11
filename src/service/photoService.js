@@ -12,7 +12,7 @@ const { UPLOADS_DIR } = process.env;
 
 export const savePhotoService = async (photo, width) => {
   try {
-    const imgDir = path.join(process.cwd(), `./src/${UPLOADS_DIR}/jpg/avatar`);
+    const imgDir = path.join(process.cwd(), `./${UPLOADS_DIR}/jpg/avatar`);
     try {
       await fs.access(imgDir);
     } catch {
@@ -40,7 +40,7 @@ export const deletePhotoService = async (imgName) => {
   try {
     const imgPath = path.join(
       process.cwd(),
-      `./src/${UPLOADS_DIR}/jpg/avatar`,
+      `./${UPLOADS_DIR}/jpg/avatar`,
       imgName
     );
 

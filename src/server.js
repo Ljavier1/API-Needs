@@ -11,12 +11,12 @@ const server = express();
 dotenv.config();
 const { UPLOADS_DIR } = process.env;
 
+server.use(cors());
 server.use(express.json());
 server.use(morgan("dev"));
-server.use(cors());
-server.use(express.static(UPLOADS_DIR));
 server.use(fileUpload());
 
+server.use(express.static(UPLOADS_DIR));
 // middleware de rutas
 server.use(routes);
 // middleware de rutas no encontradas

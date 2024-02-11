@@ -5,7 +5,7 @@ import {
   emailAlReadyRegistratedError,
 } from "../../service/errorService.js";
 
-const insertUserModel = async (name, email, password, bio, photo) => {
+const insertUserModel = async (name, email, password, bio) => {
   const pool = await getPool();
 
   let [user] = await pool.query(
@@ -34,19 +34,13 @@ const insertUserModel = async (name, email, password, bio, photo) => {
     [bio]
   );
 
-  [user] = await pool.query(
-    `
-      SELECT id FROM users WHERE photo = ?
-    `,
-    [photo]
-  );
   const hashedPassword = await bcrypt.hash(password, 10);
   await pool.query(
     `
-        INSERT INTO users (name, email, password, bio, photo)
-        VALUES (?,?,?,?,?)
+        INSERT INTO users (name, email, password, bio)
+        VALUES (?,?,?,?)
     `,
-    [name, email, hashedPassword, bio, photo]
+    [name, email, hashedPassword, bio]
   );
 };
 

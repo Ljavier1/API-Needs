@@ -10,7 +10,7 @@ const { UPLOADS_DIR } = process.env;
 
 export const fileService = async (file) => {
   try {
-    const uploadDir = path.join(process.cwd(), `./src/${UPLOADS_DIR}/`);
+    const uploadDir = path.join(process.cwd(), `./${UPLOADS_DIR}/`);
 
     try {
       await fs.access(uploadDir);
