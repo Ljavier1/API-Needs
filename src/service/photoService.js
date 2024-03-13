@@ -10,25 +10,19 @@ dotenv.config();
 
 const { UPLOADS_DIR } = process.env;
 
-export const savePhotoService = async (photo, width) => {
+export const savePhotoService = async (photoFile, width) => {
   try {
-    const imgDir = path.join(process.cwd(), `./${UPLOADS_DIR}/jpg/avatar`);
+    const imgDir = path.join(process.cwd(), `./${UPLOADS_DIR}/avatar`);
     try {
       await fs.access(imgDir);
     } catch {
-      console.log("Pasa por aqui");
       await fs.mkdir(imgDir, { recursive: true });
     }
 
-    const sharpImg = sharp(photo.data);
-
-    sharpImg.resize(width);
-
     const imgName = `${uuid()}.jpg`;
-
     const imgPath = path.join(imgDir, imgName);
 
-    await sharpImg.toFile(imgPath);
+    await sharp(photoFile.path).resize(width).toFile(imgPath);
 
     return imgName;
   } catch (error) {
@@ -40,17 +34,16 @@ export const deletePhotoService = async (imgName) => {
   try {
     const imgPath = path.join(
       process.cwd(),
-      `./${UPLOADS_DIR}/jpg/avatar`,
+      `./${UPLOADS_DIR}/avatar`,
       imgName
     );
 
     try {
       await fs.access(imgPath);
+      await fs.unlink(imgPath);
     } catch {
       return;
     }
-
-    await fs.unlink(imgPath);
   } catch (error) {
     deleteFileError();
   }

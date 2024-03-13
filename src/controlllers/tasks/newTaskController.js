@@ -11,7 +11,7 @@ const newTaskController = async (req, res, next) => {
       for (let file of Object.values(req.files).slice(0, 3)) {
         let photoName = await fileService(file);
 
-        const photoId = await insertTasksModel(
+        const { taskId, photoId } = await insertTasksModel(
           title,
           description,
           photoName,
@@ -29,11 +29,11 @@ const newTaskController = async (req, res, next) => {
       status: "ok",
       data: {
         task: {
+          id: taskId,
           title,
           description,
           userId: req.user.id,
           photos,
-          createdAt: new Date(),
         },
       },
     });

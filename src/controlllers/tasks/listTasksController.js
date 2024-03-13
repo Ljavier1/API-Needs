@@ -5,7 +5,11 @@ const listTasksController = async (req, res, next) => {
     const tasks = await selectAllTasksModel();
 
     res.send({
-      data: tasks,
+      data: tasks.map(task => ({
+        ...task,
+        numComments: task.num_comments,
+        isResolved: task.is_resolved,
+      })),
     });
   } catch (error) {
     next(error);

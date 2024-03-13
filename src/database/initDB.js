@@ -1,15 +1,35 @@
 import getPool from "./getPool.js";
 import dotenv from "dotenv";
+import fs from 'fs/promises';
+import path from 'path';
 
 dotenv.config();
 
 const initDB = async () => {
+
+  let pool;
+
   try {
-    let pool = await getPool();
+     pool = await getPool();
 
-    await pool.query(`USE api_needs`);
+     const uploadsDir = path.join(process.cwd(), process.env.UPLOADS_DIR);
+    const uploadedFiles = await fs.readdir(uploadsDir);
 
-    // Creación de tablas
+    const [users] = await pool.query('SELECT photo FROM users');
+    const dbFiles = users.map(user => user.photo);
+
+    const filesToDelete = uploadedFiles.filter(file => !dbFiles.includes(file));
+    await Promise.all(filesToDelete.map(file => fs.unlink(path.join(uploadsDir, file))));
+
+    console.log('Borrado de archivos no referenciados completado.');
+
+     await pool.query(
+      'DROP TABLE IF EXISTS users, tasks, solutions, comments'
+  );
+
+  console.log('Creando tablas...');
+
+    // Tabla de usuarios
     await pool.query(`
       CREATE TABLE IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -22,6 +42,7 @@ const initDB = async () => {
       )
     `);
 
+    // Tabla de tareas
     await pool.query(`
       CREATE TABLE IF NOT EXISTS tasks (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -35,6 +56,7 @@ const initDB = async () => {
       )
     `);
 
+    // Tabla de soluciones
     await pool.query(`
       CREATE TABLE IF NOT EXISTS solutions (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -48,6 +70,7 @@ const initDB = async () => {
       )
     `);
 
+    // Tabla de comentarios
     await pool.query(`
       CREATE TABLE IF NOT EXISTS comments (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -62,12 +85,17 @@ const initDB = async () => {
 
     console.log("Tablas creadas.");
 
-    // Cerrar la conexión
   } catch (error) {
     console.error("Error al iniciar base de datos:", error.message);
+    process.exit(1);
   }
+
+  finally {
+    // Cerramos el proceso.
+    process.exit(0);
+}
 };
 
-console.log("Base de datos creada");
 initDB();
+
 export default initDB;

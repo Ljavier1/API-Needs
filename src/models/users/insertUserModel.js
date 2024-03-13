@@ -8,32 +8,29 @@ import {
 const insertUserModel = async (name, email, password, bio) => {
   const pool = await getPool();
 
+  // Verificar si el usuario ya está registrado por nombre
   let [user] = await pool.query(
     `
         SELECT id FROM users WHERE name = ?
     `,
     [name]
   );
-  if (user.lenght) {
+  if (user.length) {
     userAlReadyRegistratedError();
   }
+
+  // Verificar si el usuario ya está registrado por correo electrónico
   [user] = await pool.query(
     `
         SELECT id FROM users WHERE email = ?
     `,
     [email]
   );
-  if (user.lenght) {
+  if (user.length) {
     emailAlReadyRegistratedError();
   }
 
-  [user] = await pool.query(
-    `
-      SELECT id FROM users WHERE bio = ?
-    `,
-    [bio]
-  );
-
+  // Hashear la contraseña antes de insertar el nuevo usuario en la base de datos
   const hashedPassword = await bcrypt.hash(password, 10);
   await pool.query(
     `

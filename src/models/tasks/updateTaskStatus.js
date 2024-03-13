@@ -1,16 +1,17 @@
 import getPool from "../../database/getPool.js";
 
-const updateTaskStatus = async (completed, userId) => {
+const updateTaskStatus = async (taskId, completed) => {
   const pool = await getPool();
 
   await pool.query(
     `
-            UPDATE tasks
-            SET completed = ?
-            WHERE id = ?
-        `,
-    [completed, userId]
+      UPDATE tasks
+      SET completed = ?
+      WHERE id = ?
+    `,
+    [completed, taskId]
   );
 };
 
 export default updateTaskStatus;
+
